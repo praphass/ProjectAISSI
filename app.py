@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import numpy as np
+# import numpy as np
 
 # โหลด model และ encoders
-model = joblib.load("..\models\loan_model_extended_muticlass_randomforest_credit_score.pkl")
-encoder = joblib.load("..\models\encoders_extended_muticlass_randomforest_credit_score.pkl")
+model = joblib.load("loan_model_extended_muticlass_randomforest_credit_score.pkl")
+encoder = joblib.load("encoders_extended_muticlass_randomforest_credit_score.pkl")
 
 # Manual mapping แทน encoder ที่หายไป
 education_map = {'Vocational': 0, 'Secondary': 1, 'Primary': 2, 'None': 3}
