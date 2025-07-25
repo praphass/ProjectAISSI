@@ -349,15 +349,18 @@ if submitted:
                 st.metric(label=f"คะแนนเครดิต (เกรด: {grade})", value=score)
 
             with res_col2:
-                status_map = {0: "มีความเสี่ยงสูง (ไม่อนุมัติ)", 1: "มีความเสี่ยงต่ำ (อนุมัติ)", 2: "รอการตรวจสอบเพิ่มเติม"}
-                status_color = {0: "red", 1: "green", 2: "orange"}
+                #status_map = {0: "มีความเสี่ยงสูง (ไม่อนุมัติ)", 1: "มีความเสี่ยงต่ำ (อนุมัติ)", 2: "รอการตรวจสอบเพิ่มเติม"}
+                #status_color = {0: "red", 1: "green", 2: "orange"}
+                status_map = {0: "มีความเสี่ยงต่ำ (อนุมัติ)", 1: "รอการตรวจสอบเพิ่มเติม", 2: "มีความเสี่ยงสูง (ไม่อนุมัติ)"}
+                status_color = {0: "green", 1: "orange", 2: "red"}
                 st.markdown("##### **ผลการประเมินโดย AI**")
                 st.markdown(
                     f"<h4 style='color:{status_color.get(prediction, 'black')};'>{status_map.get(prediction, 'N/A')}</h4>",
                     unsafe_allow_html=True)
 
             with res_col3:
-                prob_default_index = np.where(model.classes_ == 0)[0][0]
+                #prob_default_index = np.where(model.classes_ == 0)[0][0]
+                prob_default_index = np.where(model.classes_ == 2)[0][0]
                 prob_default = prediction_proba[prob_default_index]
                 st.metric(label="ความน่าจะเป็นในการผิดนัดชำระ", value=f"{prob_default:.2%}")
 
