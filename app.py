@@ -262,7 +262,7 @@ with st.form("loan_application_form"):
 
     colss = st.columns([6, 1])
     with colss[1]:
-         submitted = st.form_submit_button("ทำนายผล (Predict)")
+         submitted = st.form_submit_button("ประเมินการขอสินเชื่อ")
 
 # --- 4. การประมวลผลจะเกิดขึ้นหลังกด Submit เท่านั้น ---
 if submitted:
