@@ -185,7 +185,7 @@ with st.form("loan_application_form"):
     col1, col2, col3, col4 = st.columns([2, 2, 2, 4])
     col1.write("ข้อมูลเครดิตบูโร")
   #  col2.write("simulated credit score")
-    col3.write("้คะแนนเครดิต")
+    col3.write("คะแนนเครดิต")
     simulated_credit_score = col4.slider("simulated_credit_score_input", 400, 900, 600, label_visibility="collapsed")
 
   #  st.divider()
