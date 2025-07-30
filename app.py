@@ -2,6 +2,129 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import openai
+from typing import Optional
+
+# ดึง API Key จาก Secrets ที่ตั้งผ่านหน้าเว็บ
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+
+def call_gpt(prompt: str) -> Optional[str]:
+    """
+    เรียกใช้งาน GPT-3.5 ผ่าน OpenAI API โดยส่ง prompt เข้าไป
+    และจัดการข้อผิดพลาดต่าง ๆ อย่างเหมาะสม
+    """
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.6,
+            max_tokens=750,
+        )
+        #return response.choices[0].message.content
+        return response.choices[0].message.content.strip()
+
+    except openai.error.AuthenticationError as e:
+        print("❌ Authentication Error: ตรวจสอบ API Key ของคุณอีกครั้ง\n", e)
+    except openai.error.RateLimitError as e:
+        print("❌ Rate Limit Error: คุณใช้งานเกิน quota แล้ว กรุณาตรวจสอบแผนของคุณ.\n", e)
+    except openai.error.OpenAIError as e:
+        print("❌ OpenAI API Error:", e)
+    except Exception as e:
+        print("❌ เกิดข้อผิดพลาดอื่น:", e)
+
+    return None  # หากเกิดข้อผิดพลาด จะคืนค่า None
+
+
+def generate_credit_reason(
+    Monthly_Income,
+    Loan_Amount,
+    loan_purpose,
+    home_ownership,
+    dependents,
+    job_completion_rate,
+    on_time_rate,
+    avg_response_time_mins,
+    customer_rating_avg,
+    job_acceptance_rate,
+    job_cancellation_count,
+    weekly_active_days,
+    membership_duration_months,
+    simulated_credit_score,
+    work_consistency_index,
+    inactive_days_last_30,
+    rejected_jobs_last_30,
+    Loan_Status_3Class=None
+):
+    """
+    วิเคราะห์เหตุผลประกอบการให้คะแนนเครดิตด้วย GPT โดยใช้ฟีเจอร์ที่ระบุ
+
+    Parameters: ข้อมูลคุณสมบัติของลูกค้า (ตามชื่อ column)
+    Returns:
+        str: คำอธิบายจาก GPT
+    """
+
+    # ตรวจสอบ input คร่าว ๆ
+    required_fields = [Monthly_Income, Loan_Amount, loan_purpose, home_ownership,
+                       dependents, job_completion_rate, on_time_rate, avg_response_time_mins,
+                       customer_rating_avg, job_acceptance_rate, job_cancellation_count,
+                       weekly_active_days, membership_duration_months,
+                       simulated_credit_score, work_consistency_index,
+                       inactive_days_last_30, rejected_jobs_last_30]
+
+    if any(x is None for x in required_fields):
+        return "⚠️ ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบให้แน่ใจว่ากรอกข้อมูลทุกช่อง"
+
+    # --- สร้าง Prompt ---
+    prompt = f"""
+ข้อมูลลูกค้าเพื่อประกอบการวิเคราะห์คะแนนเครดิต:
+
+- รายได้ต่อเดือน: {Monthly_Income:,} บาท
+- ยอดขอสินเชื่อ: {Loan_Amount:,} บาท
+- วัตถุประสงค์การกู้: {loan_purpose}
+- การถือครองที่อยู่อาศัย: {home_ownership}
+- จำนวนผู้พึ่งพิง: {dependents} คน
+
+- อัตราการทำงานสำเร็จ: {job_completion_rate:.1f}%
+- อัตราการส่งงานตรงเวลา: {on_time_rate:.1f}%
+- เวลาตอบกลับเฉลี่ย: {avg_response_time_mins:.1f} นาที
+- คะแนนจากลูกค้าเฉลี่ย: {customer_rating_avg:.2f}
+- อัตราการตอบรับงาน: {job_acceptance_rate:.1f}%
+- จำนวนการยกเลิกงานทั้งหมด: {job_cancellation_count} ครั้ง
+- ความถี่ในการทำงานต่อสัปดาห์: {weekly_active_days} วัน
+- ความสม่ำเสมอในการทำงาน: {work_consistency_index:.2f}
+
+- ระยะเวลาการเป็นสมาชิก: {membership_duration_months} เดือน
+- จำนวนวันที่ไม่ได้ทำงานใน 30 วันที่ผ่านมา: {inactive_days_last_30} วัน
+- จำนวนงานที่ปฏิเสธใน 30 วัน: {rejected_jobs_last_30} งาน
+- คะแนนเครดิตที่ประเมินได้ (จำลอง): {simulated_credit_score}
+
+กรุณาวิเคราะห์และอธิบายเหตุผลประกอบการประเมินคะแนนเครดิตของลูกค้ารายนี้
+สรุปให้สั้น กระชับ ไม่เกิน 5 บรรทัด:
+- จุดแข็ง (เชิงบวก)
+- ข้อควรระวัง (เชิงลบ)
+- ปัจจัยสำคัญที่มีผลต่อคะแนน
+
+หลีกเลี่ยงการบอกว่าควร "อนุมัติ" หรือ "ปฏิเสธ"
+ใช้ภาษากลางที่อ่านง่าย ไม่ใช้ภาษาทางเทคนิค
+
+"""
+
+    if Loan_Status_3Class:
+        prompt += f"\n\n(ข้อมูลอ้างอิง: สถานะสินเชื่อปัจจุบันคือ '{Loan_Status_3Class}')"
+
+    try:
+        result = call_gpt(prompt)
+        # result = call_openthaigpt(prompt)
+        if result is not None:
+            print(result)
+        else:
+            print("⚠️ ไม่สามารถเรียก GPT ได้")
+        return result
+
+    except:
+        print("เกิดข้อผิดพลาด")
+        return "ไม่สามารถตอบได้ในขณะนี้"
 
 
 # --- Helper Function for the new report ---
@@ -386,10 +509,31 @@ if submitted:
             with table_col2:
                 # --- NEW REASON SECTION ---
                 st.markdown("##### **เหตุผลประกอบคะแนนเครดิต**")
-                reasons = get_credit_reasons(score, data_to_predict)
+                #reasons = get_credit_reasons(score, data_to_predict)
+                reasons = generate_credit_reason(
+                    Monthly_Income=data_to_predict['Monthly_Income'],
+                    Loan_Amount=data_to_predict['Loan_Amount'],
+                    loan_purpose=data_to_predict['loan_purpose'],
+                    home_ownership=data_to_predict['home_ownership'],
+                    dependents=data_to_predict['dependents'],
+                    job_completion_rate=data_to_predict['job_completion_rate'],
+                    on_time_rate=data_to_predict['on_time_rate'],
+                    avg_response_time_mins=data_to_predict['avg_response_time_mins'],
+                    customer_rating_avg=data_to_predict['customer_rating_avg'],
+                    job_acceptance_rate=data_to_predict['job_acceptance_rate'],
+                    job_cancellation_count=data_to_predict['job_cancellation_count'],
+                    weekly_active_days=data_to_predict['weekly_active_days'],
+                    membership_duration_months=data_to_predict['membership_duration_months'],
+                    simulated_credit_score=data_to_predict['simulated_credit_score'],
+                    work_consistency_index=data_to_predict['work_consistency_index'],
+                    inactive_days_last_30=data_to_predict['inactive_days_last_30'],
+                    rejected_jobs_last_30=data_to_predict['rejected_jobs_last_30'],
+                    Loan_Status_3Class=status_map.get(prediction, 'N/A')
+                )
                 st.markdown('<div class="reason-box">', unsafe_allow_html=True)
-                for reason in reasons:
-                    st.write(reason)
+                #for reason in reasons:
+                #    st.write(reason)
+                st.write(reasons)
                 st.markdown('</div>', unsafe_allow_html=True)
 
             #with table_col3:
