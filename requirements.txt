@@ -3,4 +3,4 @@ pandas
 joblib
 numpy
 scikit-learn
-openai
+openai==0.27.8
