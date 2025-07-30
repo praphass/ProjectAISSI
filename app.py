@@ -210,7 +210,7 @@ occupation_map = {'Private': 0, 'Government': 1, 'Freelancer': 2, 'Unemployed': 
 
 # --- 2. ตั้งค่าหน้าจอและหัวข้อ ---
 st.set_page_config(page_title="Loan Approval Prediction", layout="wide")
-st.title("🎯 Project: AI-Powered Credit rating service (3-Class)")
+st.title("🎯 AI-Powered Credit Rating Service")
 
 # --- 3. สร้าง Form เพื่อรับข้อมูลทั้งหมดในครั้งเดียว ---
 with st.form("loan_application_form"):
@@ -422,7 +422,7 @@ if submitted:
     input_df = pd.DataFrame([data_to_predict])
 
     st.write("---")
-    st.subheader("ผลการทำนาย (Prediction Result)")
+    st.subheader("ผลการประเมิน (Prediction Result)")
 
     # ทำนายผล
     try:
@@ -461,7 +461,7 @@ if submitted:
 
         with st.container():
             st.markdown('<div class="report-container">', unsafe_allow_html=True)
-            st.markdown('<h2 class="report-header">ตัวอย่างรายงานเครดิตบูโร (คะแนนเครดิต)</h2>', unsafe_allow_html=True)
+            st.markdown('<h2 class="report-header">รายงานผลการประเมินความน่าเชื่อถือการขอสินเชื่อส่วนบุคคล</h2>', unsafe_allow_html=True)
 
             # --- NEW LAYOUT PART 1: Top metrics ---
             score = simulated_credit_score
