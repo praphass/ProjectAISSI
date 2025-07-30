@@ -122,9 +122,9 @@ def generate_credit_reason(
             print("⚠️ ไม่สามารถเรียก GPT ได้")
         return result
 
-    except:
-        print("เกิดข้อผิดพลาด")
-        return "ไม่สามารถตอบได้ในขณะนี้"
+    except Exception as e:
+        print("เกิดข้อผิดพลาด", e)
+        return f"ไม่สามารถตอบได้ในขณะนี้: {e}"
 
 
 # --- Helper Function for the new report ---
