@@ -191,7 +191,8 @@ def get_credit_reasons(score, data):
 # --- 1. โหลด Model และกำหนด Mapping ---
 # ใช้ try-except เพื่อป้องกันข้อผิดพลาดหากหาไฟล์ไม่เจอ
 try:
-    model = joblib.load("loan_model_extended_muticlass_randomforest_credit_score.pkl")
+    #model = joblib.load("loan_model_extended_muticlass_randomforest_credit_score.pkl")
+    model = joblib.load("loan_model_muticlass_randomforest_no_credit_score_5aug2025.pkl")
 except FileNotFoundError:
     st.error("ไม่พบไฟล์โมเดลที่จำเป็น (loan_model...pkl). กรุณาตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ 'models'")
     st.stop()  # หยุดการทำงานของแอปถ้าไม่มีโมเดล
