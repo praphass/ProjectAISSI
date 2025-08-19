@@ -8,6 +8,19 @@ from typing import Optional
 # ดึง API Key จาก Secrets ที่ตั้งผ่านหน้าเว็บ
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
+# รายการของไฟล์โมเดลที่อยู่ในโฟลเดอร์เดียวกัน
+model_options = [
+    "model_logistic_muticlass_credit_score_v2.pkl",
+    "model_logistic_muticlass_nocredit_score_v2.pkl",
+    "model_randomforest_muticlass_credit_score_v2.pkl",
+    "model_randomforest_muticlass_nocredit_score_v2.pkl"
+]
+
+selected_model_file = st.selectbox(
+    "เลือกโมเดลที่ต้องการใช้งาน:",
+    options=model_options
+)
+
 
 def call_gpt(prompt: str) -> Optional[str]:
     """
@@ -194,7 +207,10 @@ def get_credit_reasons(score, data):
 # ใช้ try-except เพื่อป้องกันข้อผิดพลาดหากหาไฟล์ไม่เจอ
 try:
     #model = joblib.load("loan_model_extended_muticlass_randomforest_credit_score.pkl")
-    model = joblib.load("loan_model_muticlass_randomforest_credit_score_5aug2025.pkl")
+    #model = joblib.load("loan_model_muticlass_randomforest_credit_score_5aug2025.pkl")
+    model = joblib.load(selected_model_file)
+    st.success(f"โหลดโมเดล '{selected_model_file}' สำเร็จแล้ว! ✨")
+
 except FileNotFoundError:
     st.error("ไม่พบไฟล์โมเดลที่จำเป็น (loan_model...pkl). กรุณาตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ 'models'")
     st.stop()  # หยุดการทำงานของแอปถ้าไม่มีโมเดล
