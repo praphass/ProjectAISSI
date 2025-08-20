@@ -12,7 +12,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 model_options = [
    # "model_logistic_muticlass_credit_score_v2.pkl",
    # "model_logistic_muticlass_nocredit_score_v2.pkl",
-    "model_randomforest_muticlass_credit_score_v2.pkl"
+    "model_randomforest_multiclass_credit_score_v2.pkl"
    # "model_randomforest_muticlass_nocredit_score_v2.pkl"
 ]
 
