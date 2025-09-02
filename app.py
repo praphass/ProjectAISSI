@@ -515,11 +515,11 @@ if submitted:
 
                 # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
                 with col_prediction:
-                    st.metric(label="ผลการทำนาย", value=prediction)
+                    st.metric(label="ผลการทำนาย Class", value=prediction)
 
                 # 3. แสดง "ความเชื่อมั่น" ในคอลัมน์ย่อยที่สอง
                 with col_confidence:
-                    st.metric(label="ความเชื่อมั่น", value=f"{confidence_score:.2%}")
+                    st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
