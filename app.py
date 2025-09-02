@@ -12,11 +12,16 @@ st.set_page_config(page_title="Loan Approval Prediction", layout="wide")
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # รายการของไฟล์โมเดลที่อยู่ในโฟลเดอร์เดียวกัน
+# model_options = [
+#    "model_logistic_muticlass_credit_score_v2.pkl",
+#   # "model_logistic_muticlass_nocredit_score_v2.pkl",
+#    "model_randomforest_multiclass_credit_score_v2.pkl"
+#   # "model_randomforest_muticlass_nocredit_score_v2.pkl"
+#]
+
 model_options = [
-    "model_logistic_muticlass_credit_score_v2.pkl",
-   # "model_logistic_muticlass_nocredit_score_v2.pkl",
-    "model_randomforest_multiclass_credit_score_v2.pkl"
-   # "model_randomforest_muticlass_nocredit_score_v2.pkl"
+    "model_logistic_v2.pkl",
+    "model_randomforest_v2.pkl"
 ]
 
 selected_model_file = st.selectbox(
