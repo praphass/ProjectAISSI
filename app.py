@@ -509,9 +509,17 @@ if submitted:
                 # 2. ดึงค่าความเชื่อมั่นสูงสุด (คือค่า probability ของคลาสที่ทายได้)
                 confidence_score = prediction_proba.max()  # ได้ค่า 0.7
 
-                # 3. แสดงผลใน st.metric
-                st.metric(label="ผลการทำนาย", value=prediction)
-                st.metric(label="ความเชื่อมั่น", value=f"{confidence_score:.2%}")
+                # --- ส่วนการแสดงผลที่ปรับปรุงใหม่ ---
+                # 1. สร้าง 2 คอลัมน์ย่อยข้างใน res_col3
+                col_prediction, col_confidence = st.columns(2)
+
+                # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
+                with col_prediction:
+                    st.metric(label="ผลการทำนาย", value=prediction)
+
+                # 3. แสดง "ความเชื่อมั่น" ในคอลัมน์ย่อยที่สอง
+                with col_confidence:
+                    st.metric(label="ความเชื่อมั่น", value=f"{confidence_score:.2%}")
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
