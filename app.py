@@ -249,12 +249,7 @@ try:
     #model = joblib.load("loan_model_muticlass_randomforest_credit_score_5aug2025.pkl")
     model = joblib.load(selected_model_file)
     st.success(f"โหลดโมเดล '{selected_model_file}' สำเร็จแล้ว! ✨")
-
-    print("คอลัมน์ที่โมเดลคาดหวัง:", selected_model_file.pkl.feature_names_in_)
-    print("จำนวนคอลัมน์ที่คาดหวัง:", len(selected_model_file.pkl.feature_names_in_))
-
-
-
+ 
 except FileNotFoundError:
     st.error("ไม่พบไฟล์โมเดลที่จำเป็น (loan_model...pkl). กรุณาตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ 'models'")
     st.stop()  # หยุดการทำงานของแอปถ้าไม่มีโมเดล
