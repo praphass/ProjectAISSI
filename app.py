@@ -505,7 +505,7 @@ if submitted:
         #prediction_proba = model.predict_proba(input_df)[0]
         # ======================  For Logistic
         # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
-        if selected_model_file == 'model_logistic_muticlass_credit_score_v2.pkl':
+        if selected_model_file == 'Logistic_Regression_Model.pkl':
 
             # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
             # 4.2. กำหนด features ที่โมเดลคาดหวัง
