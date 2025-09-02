@@ -518,7 +518,10 @@ if submitted:
         #prediction_proba = model.predict_proba(input_df)[0]
         # ======================  For Logistic
         # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
-        if selected_model_file == 'Logistic_Regression_Model.pkl':
+
+
+        # Check the selected model file
+        if "C2M1" in selected_model_file or "C1M1" in selected_model_file:
 
             # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
             # 4.2. กำหนด features ที่โมเดลคาดหวัง
@@ -540,10 +543,18 @@ if submitted:
             # ถ้าเป็นโมเดล Logistic Regression ให้ใช้ข้อมูลที่ผ่านการประมวลผลแล้ว
             prediction = model.predict(input_df_processed)[0]
             prediction_proba = model.predict_proba(input_df_processed)[0]
-        else:
+
+        elif "C2M2" in selected_model_file or "C1M2" in selected_model_file:
+
             # ถ้าเป็นโมเดลอื่นๆ (เช่น Random Forest) ให้ใช้ข้อมูลดิบ
             prediction = model.predict(input_df)[0]
             prediction_proba = model.predict_proba(input_df)[0]
+
+        else:
+            # --- Handle unknown models ---
+            st.warning("Selected model is not a recognized Logistic Regression or Random Forest model.")
+            prediction = None
+            prediction_proba = None
 
         # แสดงผลลัพธ์
     ##    st.success(f"**ผลการประเมินสถานะ: {prediction}**")
