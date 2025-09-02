@@ -504,7 +504,8 @@ if submitted:
                 prob_default_index = np.where(model.classes_ == 0)[0][0]
                 #prob_default_index = np.where(model.classes_ == 2)[0][0]
                 prob_default = prediction_proba[prob_default_index]
-                st.metric(label="ความน่าจะเป็นในการผิดนัดชำระ", value=f"{prob_default:.2%}")
+               #st.metric(label="ความน่าจะเป็นในการผิดนัดชำระ", value=f"{prob_default:.2%}")
+                st.metric(label="ความเชื่อมั่น", value=f"{prediction:.2%}")
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
