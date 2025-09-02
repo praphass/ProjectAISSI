@@ -505,7 +505,13 @@ if submitted:
                 #prob_default_index = np.where(model.classes_ == 2)[0][0]
                 prob_default = prediction_proba[prob_default_index]
                #st.metric(label="ความน่าจะเป็นในการผิดนัดชำระ", value=f"{prob_default:.2%}")
-                st.metric(label="ความเชื่อมั่น", value=f"{prediction:.2%}")
+
+                # 2. ดึงค่าความเชื่อมั่นสูงสุด (คือค่า probability ของคลาสที่ทายได้)
+                confidence_score = prediction_proba.max()  # ได้ค่า 0.7
+
+                # 3. แสดงผลใน st.metric
+                st.metric(label="ผลการทำนาย", value=prediction)
+                st.metric(label="ความเชื่อมั่น", value=f"{confidence_score:.2%}")
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
