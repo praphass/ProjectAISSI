@@ -24,10 +24,20 @@ model_options = [
     "Random_Forest_Model.pkl"
 ]
 
-selected_model_file = st.selectbox(
-    "เลือกโมเดลที่ต้องการใช้งาน:",
-    options=model_options
-)
+#selected_model_file = st.selectbox(
+#    "เลือกโมเดลที่ต้องการใช้งาน:",
+#    options=model_options
+#)
+
+
+# --- 2. สร้าง Sidebar สำหรับการตั้งค่าโมเดล ---
+with st.sidebar:
+    st.header("การตั้งค่าโมเดล")
+    selected_model_file = st.selectbox(
+        "เลือกโมเดลที่ต้องการใช้งาน:",
+        options=model_options
+    )
+
 
 
 def call_gpt(prompt: str) -> Optional[str]:
