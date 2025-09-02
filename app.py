@@ -663,3 +663,27 @@ if submitted:
 
     except Exception as e:
         st.error(f"เกิดข้อผิดพลาดระหว่างการทำนาย: {e}")
+
+# --- Footer code here ---
+st.markdown(
+    """
+    <style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f0f2f6; /* เปลี่ยนตรงนี้ให้เป็นสีเทาอ่อน */
+        color: black; /* สีข้อความยังคงเป็นสีดำ */
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+        border-top: 1px solid #e6e6e6; /* ขอบด้านบน */
+    }
+    </style>
+    <div class="footer">
+        <p>School of IT Project AI Developer by 2PS team. @2025</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
