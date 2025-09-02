@@ -509,7 +509,8 @@ if submitted:
            # **metrics_values  # นำค่าจาก sliders ทั้งหมดมารวมกัน
         }
 
-    else:  #Credit_score
+    #Credit_score
+    elif "C2M1" in selected_model_file or "C2M2" in selected_model_file:
 
         data_to_predict = {
             "Gender": gender_map[Gender],
@@ -539,6 +540,9 @@ if submitted:
             "rejected_jobs_last_30": metrics_values["rejected_jobs_last_30"]
             # **metrics_values  # นำค่าจาก sliders ทั้งหมดมารวมกัน
         }
+    else:
+        # --- Handle unknown models ---
+        st.warning("no data found")
 
     input_df = pd.DataFrame([data_to_predict])
 
@@ -556,19 +560,35 @@ if submitted:
         # Check the selected model file
         if "C2M1" in selected_model_file or "C1M1" in selected_model_file:
 
-            # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
-            # 4.2. กำหนด features ที่โมเดลคาดหวัง
-            expected_features = [
-                'Age', 'Work_Experience', 'Monthly_Income', 'Loan_Amount', 'dependents',
-                'job_completion_rate', 'on_time_rate', 'avg_response_time_mins',
-                'customer_rating_avg', 'job_acceptance_rate', 'job_cancellation_count',
-                'weekly_active_days', 'membership_duration_months', 'simulated_credit_score',
-                'work_consistency_index', 'inactive_days_last_30', 'rejected_jobs_last_30',
-                'Gender_Male', 'Occupation_Freelancer', 'Occupation_Government',
-                'Occupation_Unemployed', 'Education_Primary', 'Education_Secondary',
-                'Education_Vocational', 'Marital_Status_Married', 'Marital_Status_Single',
-                'Region_East', 'Region_North', 'Region_South'
-            ]
+            if "C2M1" in selected_model_file: #C2M1_Credit_score_with_Logistic_Regression_Model
+                # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
+                # 4.2. กำหนด features ที่โมเดลคาดหวัง
+                expected_features = [
+                    'Age', 'Work_Experience', 'Monthly_Income', 'Loan_Amount', 'dependents',
+                    'job_completion_rate', 'on_time_rate', 'avg_response_time_mins',
+                    'customer_rating_avg', 'job_acceptance_rate', 'job_cancellation_count',
+                    'weekly_active_days', 'membership_duration_months', 'simulated_credit_score',
+                    'work_consistency_index', 'inactive_days_last_30', 'rejected_jobs_last_30',
+                    'Gender_Male', 'Occupation_Freelancer', 'Occupation_Government',
+                    'Occupation_Unemployed', 'Education_Primary', 'Education_Secondary',
+                    'Education_Vocational', 'Marital_Status_Married', 'Marital_Status_Single',
+                    'Region_East', 'Region_North', 'Region_South'
+                ]
+
+            else: #C1M1_Nocredit_score_with_Logistic_Regression_Model
+                expected_features = [
+                    'Age', 'Work_Experience', 'Monthly_Income', 'Loan_Amount', 'dependents',
+                    'job_completion_rate', 'on_time_rate', 'avg_response_time_mins',
+                    'customer_rating_avg', 'job_acceptance_rate', 'job_cancellation_count',
+                    'weekly_active_days', 'membership_duration_months', # 'simulated_credit_score',
+                    'work_consistency_index', 'inactive_days_last_30', 'rejected_jobs_last_30',
+                    'Gender_Male', 'Occupation_Freelancer', 'Occupation_Government',
+                    'Occupation_Unemployed', 'Education_Primary', 'Education_Secondary',
+                    'Education_Vocational', 'Marital_Status_Married', 'Marital_Status_Single',
+                    'Region_East', 'Region_North', 'Region_South'
+                ]
+
+
 
             # 4.3. เรียกใช้ฟังก์ชันเพื่อประมวลผลข้อมูล
             input_df_processed = preprocess_data(input_df, expected_features)
