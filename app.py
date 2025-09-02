@@ -20,8 +20,14 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 #]
 
 model_options = [
-    "Logistic_Regression_Model.pkl",
-    "Random_Forest_Model.pkl"
+   # "C1M1_Logistic_Regression_Model.pkl",
+   # "C1M2_Random_Forest_Model.pkl",
+   # "C2M1_Logistic_Regression_Model.pkl",
+   # "C2M2_Random_Forest_Model.pkl"
+    "C1M1_No_credit_score_with_Logistic_Regression_Model.pkl",
+    "C1M2_No_credit_score_with_Random_Forest_Model.pkl",
+    "C2M1_Credit_score_with_Logistic_Regression_Model.pkl",
+    "C2M2_Credit_score_with_Random_Forest_Model.pkl"
 ]
 
 #selected_model_file = st.selectbox(
@@ -37,7 +43,14 @@ with st.sidebar:
         "เลือกโมเดลที่ต้องการใช้งาน:",
         options=model_options
     )
-
+# เพิ่มข้อความหมายเหตุไว้ที่นี่
+st.info("""
+**หมายเหตุ:**
+- C1M1: No credit score with Logistic Regression Model
+- C1M2: No credit score with Random Forest Model
+- C2M1: Credit score with Logistic Regression Model
+- C2M2: Credit score with Random Forest Model
+""")
 
 
 def call_gpt(prompt: str) -> Optional[str]:
