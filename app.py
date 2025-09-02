@@ -5,6 +5,9 @@ import numpy as np
 import openai
 from typing import Optional
 
+# --- 2. ตั้งค่าหน้าจอและหัวข้อ ---
+st.set_page_config(page_title="Loan Approval Prediction", layout="wide")
+
 # ดึง API Key จาก Secrets ที่ตั้งผ่านหน้าเว็บ
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
@@ -249,7 +252,7 @@ try:
     #model = joblib.load("loan_model_muticlass_randomforest_credit_score_5aug2025.pkl")
     model = joblib.load(selected_model_file)
     st.success(f"โหลดโมเดล '{selected_model_file}' สำเร็จแล้ว! ✨")
- 
+
 except FileNotFoundError:
     st.error("ไม่พบไฟล์โมเดลที่จำเป็น (loan_model...pkl). กรุณาตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ 'models'")
     st.stop()  # หยุดการทำงานของแอปถ้าไม่มีโมเดล
@@ -266,8 +269,7 @@ marital_status_map = {'Single': 0, 'Married': 1, 'Divorced': 2}
 region_map = {'North': 0, 'Central': 1, 'South': 2, 'East': 3, 'West': 4}
 occupation_map = {'Private': 0, 'Government': 1, 'Freelancer': 2, 'Unemployed': 3}
 
-# --- 2. ตั้งค่าหน้าจอและหัวข้อ ---
-st.set_page_config(page_title="Loan Approval Prediction", layout="wide")
+
 st.title("🎯 AI-Powered Credit Rating Service")
 
 # --- 3. สร้าง Form เพื่อรับข้อมูลทั้งหมดในครั้งเดียว ---
