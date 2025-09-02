@@ -49,6 +49,45 @@ def call_gpt(prompt: str) -> Optional[str]:
     return None  # หากเกิดข้อผิดพลาด จะคืนค่า None
 
 
+def preprocess_data(input_df: pd.DataFrame, expected_features: list) -> pd.DataFrame:
+    """
+    Transforms raw input data to match the expected format for the model.
+
+    This function performs One-Hot Encoding and aligns the columns to ensure
+    the input DataFrame has the same features and order as the data used
+    to train the model.
+
+    Args:
+        input_df (pd.DataFrame): The raw DataFrame with user-provided data.
+        expected_features (list): A list of feature names the model expects.
+
+    Returns:
+        pd.DataFrame: The preprocessed DataFrame ready for prediction.
+    """
+    # Define categorical columns to encode
+    cat_cols_to_encode = [
+        'Gender', 'Occupation', 'Education', 'Marital_Status', 'Region',
+        'Certificate', 'loan_purpose', 'home_ownership'
+    ]
+
+    # Perform One-Hot Encoding
+    input_df_encoded = pd.get_dummies(input_df, columns=cat_cols_to_encode, drop_first=True)
+
+    # Add any missing columns (from the expected list) and fill with zeros
+    missing_cols = set(expected_features) - set(input_df_encoded.columns)
+    for c in missing_cols:
+        input_df_encoded[c] = 0
+
+    # Remove any extra columns that are not in the expected list
+    extra_cols = set(input_df_encoded.columns) - set(expected_features)
+    if extra_cols:
+        input_df_encoded.drop(columns=extra_cols, inplace=True)
+
+    # Reorder the columns to match the expected order
+    input_df_encoded = input_df_encoded[expected_features]
+
+    return input_df_encoded
+
 def generate_credit_reason(
     Monthly_Income,
     Loan_Amount,
@@ -210,6 +249,11 @@ try:
     #model = joblib.load("loan_model_muticlass_randomforest_credit_score_5aug2025.pkl")
     model = joblib.load(selected_model_file)
     st.success(f"โหลดโมเดล '{selected_model_file}' สำเร็จแล้ว! ✨")
+
+    print("คอลัมน์ที่โมเดลคาดหวัง:", selected_model_file.pkl.feature_names_in_)
+    print("จำนวนคอลัมน์ที่คาดหวัง:", len(selected_model_file.pkl.feature_names_in_))
+
+
 
 except FileNotFoundError:
     st.error("ไม่พบไฟล์โมเดลที่จำเป็น (loan_model...pkl). กรุณาตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ 'models'")
@@ -445,8 +489,36 @@ if submitted:
 
     # ทำนายผล
     try:
-        prediction = model.predict(input_df)[0]
-        prediction_proba = model.predict_proba(input_df)[0]
+        #prediction = model.predict(input_df)[0]
+        #prediction_proba = model.predict_proba(input_df)[0]
+        # ======================  For Logistic
+        # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
+        if selected_model_file == 'model_logistic_muticlass_credit_score_v2.pkl':
+
+            # ตรวจสอบชื่อไฟล์โมเดลที่ถูกเลือก
+            # 4.2. กำหนด features ที่โมเดลคาดหวัง
+            expected_features = [
+                'Age', 'Work_Experience', 'Monthly_Income', 'Loan_Amount', 'dependents',
+                'job_completion_rate', 'on_time_rate', 'avg_response_time_mins',
+                'customer_rating_avg', 'job_acceptance_rate', 'job_cancellation_count',
+                'weekly_active_days', 'membership_duration_months', 'simulated_credit_score',
+                'work_consistency_index', 'inactive_days_last_30', 'rejected_jobs_last_30',
+                'Gender_Male', 'Occupation_Freelancer', 'Occupation_Government',
+                'Occupation_Unemployed', 'Education_Primary', 'Education_Secondary',
+                'Education_Vocational', 'Marital_Status_Married', 'Marital_Status_Single',
+                'Region_East', 'Region_North', 'Region_South'
+            ]
+
+            # 4.3. เรียกใช้ฟังก์ชันเพื่อประมวลผลข้อมูล
+            input_df_processed = preprocess_data(input_df, expected_features)
+            # =============== # For Logistic
+            # ถ้าเป็นโมเดล Logistic Regression ให้ใช้ข้อมูลที่ผ่านการประมวลผลแล้ว
+            prediction = model.predict(input_df_processed)[0]
+            prediction_proba = model.predict_proba(input_df_processed)[0]
+        else:
+            # ถ้าเป็นโมเดลอื่นๆ (เช่น Random Forest) ให้ใช้ข้อมูลดิบ
+            prediction = model.predict(input_df)[0]
+            prediction_proba = model.predict_proba(input_df)[0]
 
         # แสดงผลลัพธ์
     ##    st.success(f"**ผลการประเมินสถานะ: {prediction}**")
