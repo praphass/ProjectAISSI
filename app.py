@@ -478,34 +478,67 @@ with st.form("loan_application_form"):
 # --- 4. การประมวลผลจะเกิดขึ้นหลังกด Submit เท่านั้น ---
 if submitted:
     # สร้าง Dictionary ของข้อมูลทั้งหมดเพื่อสร้าง DataFrame
-    data_to_predict = {
-        "Gender": gender_map[Gender],
-        "Age": Age,
-        "Occupation": occupation_map[Occupation],
-        "Education": education_map[Education],
-        "Marital_Status": marital_status_map[Marital_Status],
-        "Work_Experience": Work_Experience,
-        "Certificate": certificate_map[Certificate],
-        "Region": region_map[Region],
-        "Monthly_Income": Monthly_Income,
-        "Loan_Amount": Loan_Amount,
-        "loan_purpose": loan_purpose_map[loan_purpose],
-        "home_ownership": home_ownership_map[home_ownership],
-        "dependents": dependents,
-        "job_completion_rate": metrics_values["job_completion_rate"],
-        "on_time_rate": metrics_values["on_time_rate"],
-        "avg_response_time_mins": metrics_values["avg_response_time_mins"],
-        "customer_rating_avg": metrics_values["customer_rating_avg"],
-        "job_acceptance_rate": metrics_values["job_acceptance_rate"],
-        "job_cancellation_count": metrics_values["job_cancellation_count"],
-        "weekly_active_days": metrics_values["weekly_active_days"],
-        "membership_duration_months": metrics_values["membership_duration_months"],
-        "simulated_credit_score": simulated_credit_score,
-        "work_consistency_index": metrics_values["work_consistency_index"],
-        "inactive_days_last_30": metrics_values["inactive_days_last_30"],
-        "rejected_jobs_last_30": metrics_values["rejected_jobs_last_30"]
-       # **metrics_values  # นำค่าจาก sliders ทั้งหมดมารวมกัน
-    }
+    #Nocredit_score
+    if "C1M1" in selected_model_file or "C1M2" in selected_model_file:
+        data_to_predict = {
+            "Gender": gender_map[Gender],
+            "Age": Age,
+            "Occupation": occupation_map[Occupation],
+            "Education": education_map[Education],
+            "Marital_Status": marital_status_map[Marital_Status],
+            "Work_Experience": Work_Experience,
+            "Certificate": certificate_map[Certificate],
+            "Region": region_map[Region],
+            "Monthly_Income": Monthly_Income,
+            "Loan_Amount": Loan_Amount,
+            "loan_purpose": loan_purpose_map[loan_purpose],
+            "home_ownership": home_ownership_map[home_ownership],
+            "dependents": dependents,
+            "job_completion_rate": metrics_values["job_completion_rate"],
+            "on_time_rate": metrics_values["on_time_rate"],
+            "avg_response_time_mins": metrics_values["avg_response_time_mins"],
+            "customer_rating_avg": metrics_values["customer_rating_avg"],
+            "job_acceptance_rate": metrics_values["job_acceptance_rate"],
+            "job_cancellation_count": metrics_values["job_cancellation_count"],
+            "weekly_active_days": metrics_values["weekly_active_days"],
+            "membership_duration_months": metrics_values["membership_duration_months"],
+           # "simulated_credit_score": simulated_credit_score,
+            "work_consistency_index": metrics_values["work_consistency_index"],
+            "inactive_days_last_30": metrics_values["inactive_days_last_30"],
+            "rejected_jobs_last_30": metrics_values["rejected_jobs_last_30"]
+           # **metrics_values  # นำค่าจาก sliders ทั้งหมดมารวมกัน
+        }
+
+    else:  #Credit_score
+
+        data_to_predict = {
+            "Gender": gender_map[Gender],
+            "Age": Age,
+            "Occupation": occupation_map[Occupation],
+            "Education": education_map[Education],
+            "Marital_Status": marital_status_map[Marital_Status],
+            "Work_Experience": Work_Experience,
+            "Certificate": certificate_map[Certificate],
+            "Region": region_map[Region],
+            "Monthly_Income": Monthly_Income,
+            "Loan_Amount": Loan_Amount,
+            "loan_purpose": loan_purpose_map[loan_purpose],
+            "home_ownership": home_ownership_map[home_ownership],
+            "dependents": dependents,
+            "job_completion_rate": metrics_values["job_completion_rate"],
+            "on_time_rate": metrics_values["on_time_rate"],
+            "avg_response_time_mins": metrics_values["avg_response_time_mins"],
+            "customer_rating_avg": metrics_values["customer_rating_avg"],
+            "job_acceptance_rate": metrics_values["job_acceptance_rate"],
+            "job_cancellation_count": metrics_values["job_cancellation_count"],
+            "weekly_active_days": metrics_values["weekly_active_days"],
+            "membership_duration_months": metrics_values["membership_duration_months"],
+            "simulated_credit_score": simulated_credit_score,
+            "work_consistency_index": metrics_values["work_consistency_index"],
+            "inactive_days_last_30": metrics_values["inactive_days_last_30"],
+            "rejected_jobs_last_30": metrics_values["rejected_jobs_last_30"]
+            # **metrics_values  # นำค่าจาก sliders ทั้งหมดมารวมกัน
+        }
 
     input_df = pd.DataFrame([data_to_predict])
 
