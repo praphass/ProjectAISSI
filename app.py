@@ -20,8 +20,8 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 #]
 
 model_options = [
-    "model_logistic_v2.pkl",
-    "model_randomforest_v2.pkl"
+    "Logistic_Regression_Model.pkl",
+    "Random_Forest_Model.pkl"
 ]
 
 selected_model_file = st.selectbox(
@@ -537,20 +537,20 @@ if submitted:
     ##    st.error(f"เกิดข้อผิดพลาดระหว่างการทำนาย: {e}")
         # --- ส่วนแสดงผลที่ออกแบบใหม่ ---
         st.markdown("""
-            <style>
-            .report-container {
-                border: 2px solid #1E90FF;
-                border-radius: 10px;
-                padding: 20px;
-                background-color: #F0F8FF;
-            }
-            .report-header {
-                color: #1E90FF;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            </style>
-            """, unsafe_allow_html=True)
+        <style>
+        .report-container {
+            border: 2px solid #1E90FF;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #F0F8FF;
+        }
+        .report-header {
+            color: #1E90FF;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
         with st.container():
             st.markdown('<div class="report-container">', unsafe_allow_html=True)
