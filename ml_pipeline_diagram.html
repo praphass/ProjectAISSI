@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ML Pipeline Flow Diagram</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+</head>
+<body>
+<h1 style="text-align: center; font-family: 'Inter', sans-serif; color: #333; font-weight: 600;">Machine Learning Pipeline</h1>
+<div class="mermaid" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+flowchart TD
+    A[Load Dataset] --> B[Preprocessing]
+    B --> B1[Label Encoding]
+    B --> B2[Drop columns]
+    B --> B3[Split Features & Target]
+    B3 --> C[Train/Test Split]
+    C --> D[Handle Imbalanced Data]
+    D --> E[Model Training]
+    E --> E1[RandomForestClassifier]
+    E --> E2[GridSearchCV]
+    E2 --> F[Best Model Selection]
+    F --> G[Model Evaluation]
+    G --> G1[Classification Report]
+    G --> G2[Confusion Matrix]
+    G --> G3[ROC Curve]
+    G --> G4[Metrics]
+    G --> H[Feature Importance]
+    H --> I[Save Model & Encoders]
+    I --> J[Deploy]
+
+    style A fill:#fce8d5,stroke:#f0a34b,stroke-width:2px
+    style B fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style B1 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style B2 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style B3 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style C fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style D fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style E fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style E1 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style E2 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style F fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style G fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style G1 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style G2 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style G3 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style G4 fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style H fill:#d9e7ff,stroke:#5585ff,stroke-width:2px
+    style I fill:#bce5d5,stroke:#58b499,stroke-width:2px
+    style J fill:#bce5d5,stroke:#58b499,stroke-width:2px
+</div>
+</body>
+</html>

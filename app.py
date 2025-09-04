@@ -53,6 +53,11 @@ with st.sidebar:
                 คู่มือกระบวนการ Machine Learning 📖
             </button>
         </a>
+        <a href="ml_pipeline_diagram.html" target="_blank">
+        <button style="background-color:#4CAF50; color:white; border:none; padding: 10px 24px; text-align:center; display:block; margin: 10px 0; cursor: pointer; border-radius: 8px;">
+            ML pipeline diagram 📖
+        </button>
+    </a>
         """,
         unsafe_allow_html=True
     )
