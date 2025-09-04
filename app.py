@@ -679,7 +679,7 @@ if submitted:
                 status_color = {0: "red", 1: "green", 2: "orange"}
                 #status_map = {0: "มีความเสี่ยงต่ำ (อนุมัติ)", 1: "รอการตรวจสอบเพิ่มเติม", 2: "มีความเสี่ยงสูง (ไม่อนุมัติ)"}
                 #status_color = {0: "green", 1: "orange", 2: "red"}
-                st.markdown("##### **ผลการประเมินโดย AI**")
+                #st.markdown("##### **ผลการประเมินโดย AI**")
                 #st.markdown(
                 #    f"<h4 style='color:{status_color.get(prediction, 'black')};'>{status_map.get(prediction, 'N/A')}</h4>",
                 #    unsafe_allow_html=True)
@@ -688,7 +688,7 @@ if submitted:
                     f"""
                         <div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
                             <p style="font-size: 1.2em; color: #555; margin-bottom: 5px;">ผลการประเมินโดย AI</p>
-                            <h3 style="font-size: 2.5em; color: {status_color.get(prediction, 'black')}; margin-top: 0;">{status_map.get(prediction, 'N/A')}</h3>
+                            <h3 style="font-size: 2em; color: {status_color.get(prediction, 'black')}; margin-top: 0;">{status_map.get(prediction, 'N/A')}</h3>
                         </div>
                         """,
                     unsafe_allow_html=True
