@@ -672,8 +672,7 @@ if submitted:
 
                 # --- ส่วนการแสดงผลที่ปรับปรุงใหม่ ---
                 # 1. สร้าง 2 คอลัมน์ย่อยข้างใน res_col3
-                #col_prediction, col_confidence = st.columns(1)
-                col_confidence = st.columns(1)
+                col_prediction, col_confidence = st.columns(2)
                 # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
                 with col_confidence:
                ##   st.metric(label="ผลการทำนาย Class", value=prediction)
