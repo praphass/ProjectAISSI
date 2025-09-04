@@ -724,14 +724,14 @@ if submitted:
                         job_cancellation_count=data_to_predict['job_cancellation_count'],
                         weekly_active_days=data_to_predict['weekly_active_days'],
                         membership_duration_months=data_to_predict['membership_duration_months'],
-                        #   simulated_credit_score=data_to_predict['simulated_credit_score'],
+                        simulated_credit_score=simulated_credit_score, #data_to_predict['simulated_credit_score'],
                         work_consistency_index=data_to_predict['work_consistency_index'],
                         inactive_days_last_30=data_to_predict['inactive_days_last_30'],
                         rejected_jobs_last_30=data_to_predict['rejected_jobs_last_30'],
                         Loan_Status_3Class=status_map.get(prediction, 'N/A')
                     )
 
-                else:  # check credit_score
+                elif "C2M1" in selected_model_file or "C2M2" in selected_model_file:  # check credit_score
 
                     reasons = generate_credit_reason(
                         Monthly_Income=data_to_predict['Monthly_Income'],
