@@ -53,7 +53,7 @@ with st.sidebar:
                 คู่มือกระบวนการ Machine Learning 📖
             </button>
         </a>
-        <a href="ml_pipeline_diagram.html" target="_blank">
+        <a href="https://github.com/praphass/ProjectAISSI/blob/main/ml_pipeline_diagram.html" target="_blank">
         <button style="background-color:#4CAF50; color:white; border:none; padding: 10px 24px; text-align:center; display:block; margin: 10px 0; cursor: pointer; border-radius: 8px;">
             ML pipeline diagram 📖
         </button>
@@ -61,6 +61,7 @@ with st.sidebar:
         """,
         unsafe_allow_html=True
     )
+
 
 # เพิ่มข้อความหมายเหตุไว้ที่นี่
 st.info("""
