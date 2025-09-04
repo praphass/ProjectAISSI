@@ -43,6 +43,20 @@ with st.sidebar:
         "เลือกโมเดลที่ต้องการใช้งาน:",
         options=model_options
     )
+
+    # เพิ่มปุ่มลิงก์หรือลิงก์ธรรมดาที่คุณเลือกไว้ที่นี่
+    st.markdown("---")  # เส้นคั่นเพื่อความเรียบร้อย
+    st.markdown(
+        """
+        <a href="https://gemini.google.com/share/d640dc922e14" target="_blank">
+            <button style="background-color:#008CBA; color:white; border:none; padding: 10px 24px; text-align:center; display:block; margin: 10px 0; cursor: pointer; border-radius: 8px;">
+                คู่มือกระบวนการ Machine Learning 📖
+            </button>
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
+
 # เพิ่มข้อความหมายเหตุไว้ที่นี่
 st.info("""
 **หมายเหตุ:**
@@ -672,7 +686,8 @@ if submitted:
 
                 # --- ส่วนการแสดงผลที่ปรับปรุงใหม่ ---
                 # 1. สร้าง 2 คอลัมน์ย่อยข้างใน res_col3
-                col_prediction, col_confidence = st.columns(2)
+                #col_prediction, col_confidence = st.columns(2)
+                col_confidence = st.columns(1)
                 # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
                 with col_confidence:
                ##   st.metric(label="ผลการทำนาย Class", value=prediction)
