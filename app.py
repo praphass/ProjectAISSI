@@ -680,9 +680,19 @@ if submitted:
                 #status_map = {0: "มีความเสี่ยงต่ำ (อนุมัติ)", 1: "รอการตรวจสอบเพิ่มเติม", 2: "มีความเสี่ยงสูง (ไม่อนุมัติ)"}
                 #status_color = {0: "green", 1: "orange", 2: "red"}
                 st.markdown("##### **ผลการประเมินโดย AI**")
+                #st.markdown(
+                #    f"<h4 style='color:{status_color.get(prediction, 'black')};'>{status_map.get(prediction, 'N/A')}</h4>",
+                #    unsafe_allow_html=True)
+                # เปลี่ยนจากโค้ดเดิม มาใช้รูปแบบ Markdown ที่คล้ายกับ res_col1
                 st.markdown(
-                    f"<h4 style='color:{status_color.get(prediction, 'black')};'>{status_map.get(prediction, 'N/A')}</h4>",
-                    unsafe_allow_html=True)
+                    f"""
+                        <div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+                            <p style="font-size: 1.2em; color: #555; margin-bottom: 5px;">ผลการประเมินโดย AI</p>
+                            <h3 style="font-size: 2.5em; color: {status_color.get(prediction, 'black')}; margin-top: 0;">{status_map.get(prediction, 'N/A')}</h3>
+                        </div>
+                        """,
+                    unsafe_allow_html=True
+                )
 
             with res_col3:
                 prob_default_index = np.where(model.classes_ == 0)[0][0]
@@ -707,9 +717,9 @@ if submitted:
                ## st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
                 # วิธีที่ 1: ใช้ Markdown และช่องว่าง
-                st.markdown(f'<div style="margin-left: 20px;">'
+                st.markdown(f'<div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">;">'
                             f'<p style="font-size: 1.2em; font-weight: bold;">ความเชื่อมั่นผลทำนาย</p>'
-                            f'<p style="font-size: 2em; color: black;">{confidence_score:.2%}</p>'
+                            f'<p style="font-size: 2.5em; color: black;">{confidence_score:.2%}</p>'
                             f'</div>',
                             unsafe_allow_html=True)
 
