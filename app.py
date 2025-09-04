@@ -669,18 +669,19 @@ if submitted:
 
                 # 2. ดึงค่าความเชื่อมั่นสูงสุด (คือค่า probability ของคลาสที่ทายได้)
                 confidence_score = prediction_proba.max()  # ได้ค่า 0.7
+                st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
                 # --- ส่วนการแสดงผลที่ปรับปรุงใหม่ ---
                 # 1. สร้าง 2 คอลัมน์ย่อยข้างใน res_col3
-                col_prediction, col_confidence = st.columns(2)
+               ## col_prediction, col_confidence = st.columns(2)
 
                 # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
-                with col_prediction:
-                    st.metric(label="ผลการทำนาย Class", value=prediction)
+               ## with col_prediction:
+               ##   st.metric(label="ผลการทำนาย Class", value=prediction)
 
                 # 3. แสดง "ความเชื่อมั่น" ในคอลัมน์ย่อยที่สอง
-                with col_confidence:
-                    st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
+               ## with col_confidence:
+               ## st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
@@ -705,26 +706,56 @@ if submitted:
                 # --- NEW REASON SECTION ---
                 st.markdown("##### **เหตุผลประกอบคะแนนเครดิต**")
                 #reasons = get_credit_reasons(score, data_to_predict)
-                reasons = generate_credit_reason(
-                    Monthly_Income=data_to_predict['Monthly_Income'],
-                    Loan_Amount=data_to_predict['Loan_Amount'],
-                    loan_purpose=data_to_predict['loan_purpose'],
-                    home_ownership=data_to_predict['home_ownership'],
-                    dependents=data_to_predict['dependents'],
-                    job_completion_rate=data_to_predict['job_completion_rate'],
-                    on_time_rate=data_to_predict['on_time_rate'],
-                    avg_response_time_mins=data_to_predict['avg_response_time_mins'],
-                    customer_rating_avg=data_to_predict['customer_rating_avg'],
-                    job_acceptance_rate=data_to_predict['job_acceptance_rate'],
-                    job_cancellation_count=data_to_predict['job_cancellation_count'],
-                    weekly_active_days=data_to_predict['weekly_active_days'],
-                    membership_duration_months=data_to_predict['membership_duration_months'],
-                    simulated_credit_score=data_to_predict['simulated_credit_score'],
-                    work_consistency_index=data_to_predict['work_consistency_index'],
-                    inactive_days_last_30=data_to_predict['inactive_days_last_30'],
-                    rejected_jobs_last_30=data_to_predict['rejected_jobs_last_30'],
-                    Loan_Status_3Class=status_map.get(prediction, 'N/A')
-                )
+
+                # Check the selected model file check nocredit
+                if "C1M1" in selected_model_file or "C1M2" in selected_model_file:
+
+                    reasons = generate_credit_reason(
+                        Monthly_Income=data_to_predict['Monthly_Income'],
+                        Loan_Amount=data_to_predict['Loan_Amount'],
+                        loan_purpose=data_to_predict['loan_purpose'],
+                        home_ownership=data_to_predict['home_ownership'],
+                        dependents=data_to_predict['dependents'],
+                        job_completion_rate=data_to_predict['job_completion_rate'],
+                        on_time_rate=data_to_predict['on_time_rate'],
+                        avg_response_time_mins=data_to_predict['avg_response_time_mins'],
+                        customer_rating_avg=data_to_predict['customer_rating_avg'],
+                        job_acceptance_rate=data_to_predict['job_acceptance_rate'],
+                        job_cancellation_count=data_to_predict['job_cancellation_count'],
+                        weekly_active_days=data_to_predict['weekly_active_days'],
+                        membership_duration_months=data_to_predict['membership_duration_months'],
+                        #   simulated_credit_score=data_to_predict['simulated_credit_score'],
+                        work_consistency_index=data_to_predict['work_consistency_index'],
+                        inactive_days_last_30=data_to_predict['inactive_days_last_30'],
+                        rejected_jobs_last_30=data_to_predict['rejected_jobs_last_30'],
+                        Loan_Status_3Class=status_map.get(prediction, 'N/A')
+                    )
+
+                else:  # check credit_score
+
+                    reasons = generate_credit_reason(
+                        Monthly_Income=data_to_predict['Monthly_Income'],
+                        Loan_Amount=data_to_predict['Loan_Amount'],
+                        loan_purpose=data_to_predict['loan_purpose'],
+                        home_ownership=data_to_predict['home_ownership'],
+                        dependents=data_to_predict['dependents'],
+                        job_completion_rate=data_to_predict['job_completion_rate'],
+                        on_time_rate=data_to_predict['on_time_rate'],
+                        avg_response_time_mins=data_to_predict['avg_response_time_mins'],
+                        customer_rating_avg=data_to_predict['customer_rating_avg'],
+                        job_acceptance_rate=data_to_predict['job_acceptance_rate'],
+                        job_cancellation_count=data_to_predict['job_cancellation_count'],
+                        weekly_active_days=data_to_predict['weekly_active_days'],
+                        membership_duration_months=data_to_predict['membership_duration_months'],
+                        simulated_credit_score=data_to_predict['simulated_credit_score'],
+                        work_consistency_index=data_to_predict['work_consistency_index'],
+                        inactive_days_last_30=data_to_predict['inactive_days_last_30'],
+                        rejected_jobs_last_30=data_to_predict['rejected_jobs_last_30'],
+                        Loan_Status_3Class=status_map.get(prediction, 'N/A')
+                    )
+
+
+
                 st.markdown('<div class="reason-box">', unsafe_allow_html=True)
                 #for reason in reasons:
                 #    st.write(reason)
