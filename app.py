@@ -53,7 +53,7 @@ with st.sidebar:
                 คู่มือกระบวนการ Machine Learning 📖
             </button>
         </a>
-        <a href="https://chatgpt.com/c/68b8fe39-af54-8329-a785-21726af9fa8a" target="_blank">
+        <a href="https://g.co/gemini/share/793a2613a32c" target="_blank">
         <button style="background-color:#4CAF50; color:white; border:none; padding: 10px 24px; text-align:center; display:block; margin: 10px 0; cursor: pointer; border-radius: 8px;">
             ML pipeline diagram 📖
         </button>
