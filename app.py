@@ -687,15 +687,22 @@ if submitted:
                 # --- ส่วนการแสดงผลที่ปรับปรุงใหม่ ---
                 # 1. สร้าง 2 คอลัมน์ย่อยข้างใน res_col3
                 #col_prediction, col_confidence = st.columns(2)
-                col_confidence = st.columns(1)
+                #col_confidence = st.columns(1)
                 # 2. แสดง "ผลการทำนาย" ในคอลัมน์ย่อยแรก
-                with col_confidence:
+                #with col_confidence:
                ##   st.metric(label="ผลการทำนาย Class", value=prediction)
-                   st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
+                #  st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
             # 3. แสดง "ความเชื่อมั่น" ในคอลัมน์ย่อยที่สอง
                ## with col_prediction:
                ## st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
+
+                # วิธีที่ 1: ใช้ Markdown และช่องว่าง
+                st.markdown(f'<div style="margin-left: 20px;">'
+                            f'<p style="font-size: 1.2em; font-weight: bold;">ความเชื่อมั่นผลทำนาย</p>'
+                            f'<p style="font-size: 2em; color: #008CBA;">{confidence_score:.2%}</p>'
+                            f'</div>',
+                            unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
