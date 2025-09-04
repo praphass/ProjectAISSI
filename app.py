@@ -700,7 +700,7 @@ if submitted:
                 # วิธีที่ 1: ใช้ Markdown และช่องว่าง
                 st.markdown(f'<div style="margin-left: 20px;">'
                             f'<p style="font-size: 1.2em; font-weight: bold;">ความเชื่อมั่นผลทำนาย</p>'
-                            f'<p style="font-size: 2em; color: #008CBA;">{confidence_score:.2%}</p>'
+                            f'<p style="font-size: 2em; color: black;">{confidence_score:.2%}</p>'
                             f'</div>',
                             unsafe_allow_html=True)
 
