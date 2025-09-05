@@ -674,11 +674,13 @@ if submitted:
                     f"""
                         <div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
                             <p style="font-size: 1.2em; color: #555; margin-bottom: 5px;">คะแนนเครดิต (เกรด: {grade})</p>
-                            <h3 style="font-size: 2.5em; color: #333; margin-top: 0;">{score}</h3>
+                            <h3 style="font-size: 2em; color: #333; margin-top: 0;">{score}</h3>
                         </div>
                         """,
                     unsafe_allow_html=True
                 )
+
+
 
             with res_col2:
                 status_map = {0: "มีความเสี่ยงสูง (ไม่อนุมัติ)", 1: "มีความเสี่ยงต่ำ (อนุมัติ)", 2: "รอการตรวจสอบเพิ่มเติม"}
@@ -723,11 +725,21 @@ if submitted:
                ## st.metric(label="ความเชื่อมั่นผลทำนาย", value=f"{confidence_score:.2%}")
 
                 # วิธีที่ 1: ใช้ Markdown และช่องว่าง
-                st.markdown(f'<div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">;">'
-                            f'<p style="font-size: 1.2em; font-weight: bold;">ความเชื่อมั่นผลทำนาย</p>'
-                            f'<p style="font-size: 2.5em; color: black;">{confidence_score:.2%}</p>'
-                            f'</div>',
-                            unsafe_allow_html=True)
+                #st.markdown(f'<div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">;">'
+                #            f'<p style="font-size: 1.2em; font-weight: bold;">ความเชื่อมั่นผลทำนาย</p>'
+                #            f'<p style="font-size: 2.5em; color: black;">{confidence_score:.2%}</p>'
+                #            f'</div>',
+                #            unsafe_allow_html=True)
+
+                st.markdown(
+                    f"""
+                    <div style="text-align: center; border: 1px solid #ddd; padding: 15px; border-radius: 10px;">
+                        <p style="font-size: 1.2em; color: #555; margin-bottom: 5px;">ความเชื่อมั่นผลทำนาย</p>
+                        <h3 style="font-size: 2em; color: black; margin-top: 0;">{confidence_score:.2%}</h3>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
             st.markdown("<br>", unsafe_allow_html=True)  # Add some space
 
