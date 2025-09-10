@@ -73,7 +73,7 @@ with st.sidebar:
 #""")
 st.info(""" **หมายเหตุ:** """)
 st.info("C2M2: Credit score with Random Forest Model", icon="👍")
-st.info("C2M1: Credit score with Logistic Regression Model", icon="")
+st.info("C2M1: Credit score with Logistic Regression Model")
 st.info("C1M2: No credit score with Random Forest Model", icon="❤")
 st.info("C1M1: No credit score with Logistic Regression Model", icon="👎")
 
