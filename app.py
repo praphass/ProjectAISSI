@@ -96,10 +96,10 @@ st.markdown("""
 
 st.markdown("""
 <div class="stAlert">
-    <span class="red-icon">👍</span> C2M2: Credit score with Random Forest Model
+    C2M2: Credit score with Random Forest Model <span class="red-icon">👍</span> 
 </div>
 <div class="stAlert">
-    <span class="blue-icon">❤</span> C1M2: No credit score with Random Forest Model
+   C1M2: No credit score with Random Forest Model <span class="blue-icon">❤</span> 
 </div>
 """, unsafe_allow_html=True)
 
