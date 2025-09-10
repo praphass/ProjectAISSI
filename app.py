@@ -24,10 +24,10 @@ model_options = [
    # "C1M2_Random_Forest_Model.pkl",
    # "C2M1_Logistic_Regression_Model.pkl",
    # "C2M2_Random_Forest_Model.pkl"
-    "C1M1_No_credit_score_with_Logistic_Regression_Model.pkl",
-    "C1M2_No_credit_score_with_Random_Forest_Model.pkl",
+    "C2M2_Credit_score_with_Random_Forest_Model.pkl",
     "C2M1_Credit_score_with_Logistic_Regression_Model.pkl",
-    "C2M2_Credit_score_with_Random_Forest_Model.pkl"
+    "C1M2_No_credit_score_with_Random_Forest_Model.pkl",
+    "C1M1_No_credit_score_with_Logistic_Regression_Model.pkl"
 ]
 
 #selected_model_file = st.selectbox(
@@ -64,13 +64,18 @@ with st.sidebar:
 
 
 # เพิ่มข้อความหมายเหตุไว้ที่นี่
-st.info("""
-**หมายเหตุ:**
-- C1M1: No credit score with Logistic Regression Model
-- C1M2: No credit score with Random Forest Model
-- C2M1: Credit score with Logistic Regression Model
-- C2M2: Credit score with Random Forest Model
-""")
+#st.info("""
+#**หมายเหตุ:**
+#- C1M1: No credit score with Logistic Regression Model
+#- C1M2: No credit score with Random Forest Model
+#- C2M1: Credit score with Logistic Regression Model
+#- C2M2: Credit score with Random Forest Model
+#""")
+st.info(""" **หมายเหตุ:** """)
+st.info("C2M2: Credit score with Random Forest Model", icon="👍")
+st.info("C2M1: Credit score with Logistic Regression Model", icon="")
+st.info("C1M2: No credit score with Random Forest Model", icon="❤")
+st.info("C1M1: No credit score with Logistic Regression Model", icon="👎")
 
 
 def call_gpt(prompt: str) -> Optional[str]:
