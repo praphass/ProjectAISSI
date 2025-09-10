@@ -25,9 +25,9 @@ model_options = [
    # "C2M1_Logistic_Regression_Model.pkl",
    # "C2M2_Random_Forest_Model.pkl"
     "C2M2_Credit_score_with_Random_Forest_Model.pkl",
-    "C2M1_Credit_score_with_Logistic_Regression_Model.pkl",
+  #  "C2M1_Credit_score_with_Logistic_Regression_Model.pkl",
     "C1M2_No_credit_score_with_Random_Forest_Model.pkl",
-    "C1M1_No_credit_score_with_Logistic_Regression_Model.pkl"
+  #  "C1M1_No_credit_score_with_Logistic_Regression_Model.pkl"
 ]
 
 #selected_model_file = st.selectbox(
@@ -71,11 +71,37 @@ with st.sidebar:
 #- C2M1: Credit score with Logistic Regression Model
 #- C2M2: Credit score with Random Forest Model
 #""")
-st.info(""" **หมายเหตุ:** """)
-st.info("C2M2: Credit score with Random Forest Model", icon="👍")
-st.info("C2M1: Credit score with Logistic Regression Model")
-st.info("C1M2: No credit score with Random Forest Model", icon="❤")
-st.info("C1M1: No credit score with Logistic Regression Model", icon="👎")
+# st.info(""" **หมายเหตุ:** """)
+# st.info("C2M2: Credit score with Random Forest Model", icon="👍")
+# st.info("C2M1: Credit score with Logistic Regression Model")
+# st.info("C1M2: No credit score with Random Forest Model", icon="❤")
+# st.info("C1M1: No credit score with Logistic Regression Model", icon="👎")
+
+st.markdown("""
+<style>
+.stAlert {
+    border-left: 5px solid;
+}
+.red-icon {
+    color: red;
+}
+.blue-icon {
+    color: blue;
+}
+.pink-icon {
+    color: #ff69b4; /* หรือสีที่คุณต้องการ */
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="stAlert">
+    <span class="red-icon">👍</span> C2M2: Credit score with Random Forest Model
+</div>
+<div class="stAlert">
+    <span class="blue-icon">❤</span> C1M2: No credit score with Random Forest Model
+</div>
+""", unsafe_allow_html=True)
 
 
 def call_gpt(prompt: str) -> Optional[str]:
