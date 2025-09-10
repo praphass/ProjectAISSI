@@ -96,6 +96,9 @@ st.markdown("""
 
 st.markdown("""
 <div class="stAlert">
+   **หมายเหตุ:**
+</div>
+<div class="stAlert">
     C2M2: Credit score with Random Forest Model <span class="red-icon">👍</span> 
 </div>
 <div class="stAlert">
